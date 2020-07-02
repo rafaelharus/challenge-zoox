@@ -2,5 +2,6 @@
 /coveralls-upload.json
 /phpunit.xml
 /vendor/
+/docker/data/*
 .idea
 .env

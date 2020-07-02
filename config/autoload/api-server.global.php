@@ -12,7 +12,8 @@ return [
                 ]
             ],
             'open-routes' => [
-                'home'
+                'home',
+                'docs',
             ],
         ],
     ]

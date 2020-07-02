@@ -14,6 +14,12 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
         'home'
     );
     $app->route(
+        '/docs',
+        Api\Handler\DocsHandler::class,
+        ['GET'],
+        'docs'
+    );
+    $app->route(
         '/v1/state',
         Api\Handler\StateHandler::class,
         ['GET', 'POST'],

@@ -39,6 +39,7 @@ class ConfigProvider
                 Handler\StateHandler::class => Handler\StateHandlerFactory::class,
                 Handler\CityHandler::class => Handler\CityHandlerFactory::class,
                 Handler\HomeHandler::class => Handler\HomeHandlerFactory::class,
+                Handler\DocsHandler::class => Handler\DocsHandlerFactory::class,
             ],
         ];
     }
