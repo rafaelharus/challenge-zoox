@@ -21,6 +21,7 @@ $cacheConfig = [
 ];
 
 $aggregator = new ConfigAggregator([
+    \Laminas\Serializer\ConfigProvider::class,
     \Laminas\Cache\ConfigProvider::class,
     \Laminas\Hydrator\ConfigProvider::class,
     \LosMiddleware\ApiServer\ConfigProvider::class,
@@ -32,6 +33,7 @@ $aggregator = new ConfigAggregator([
     \Mezzio\Hal\ConfigProvider::class,
     \Laminas\HttpHandlerRunner\ConfigProvider::class,
     \Mezzio\Router\FastRouteRouter\ConfigProvider::class,
+    \Mezzio\LaminasView\ConfigProvider::class,
     // Include cache configuration
     new ArrayProvider($cacheConfig),
 

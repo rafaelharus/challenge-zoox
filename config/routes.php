@@ -8,6 +8,12 @@ use Psr\Container\ContainerInterface;
 
 return static function (Application $app, MiddlewareFactory $factory, ContainerInterface $container) : void {
     $app->route(
+        '/',
+        Api\Handler\HomeHandler::class,
+        ['GET'],
+        'home'
+    );
+    $app->route(
         '/v1/state',
         Api\Handler\StateHandler::class,
         ['GET', 'POST'],

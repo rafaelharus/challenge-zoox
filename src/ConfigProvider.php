@@ -38,6 +38,7 @@ class ConfigProvider
                 Mapper\CityMapper::class => Mapper\Factory\CityMapperFactory::class,
                 Handler\StateHandler::class => Handler\StateHandlerFactory::class,
                 Handler\CityHandler::class => Handler\CityHandlerFactory::class,
+                Handler\HomeHandler::class => Handler\HomeHandlerFactory::class,
             ],
         ];
     }

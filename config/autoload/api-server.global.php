@@ -11,6 +11,9 @@ return [
                     ],
                 ]
             ],
+            'open-routes' => [
+                'home'
+            ],
         ],
     ]
 ];

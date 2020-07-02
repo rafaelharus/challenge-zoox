@@ -1,0 +1,24 @@
+<?php $this->headTitle('Home'); ?>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Cidade</th>
+                <th scope="col">UF</th>
+                <th scope="col">Criado</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($this->cities as $cityEntity): ?>
+            <?php $city = $cityEntity->getArrayCopy() ?>
+                <tr>
+                    <td><?= $city['name'] ?></td>
+                    <td><?= $this->states[$city['stateId']] ?></td>
+                    <td><?= $city['createdAt'] ?></td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</div>
