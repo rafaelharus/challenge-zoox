@@ -1,0 +1,340 @@
+servers:
+  - url: https://localhost:8080
+openapi: "3.0.0"
+info:
+  title: API Zoox Challenge
+  version: 1.0.0
+  description: API Region City and State
+  contact:
+    name: Rafael Harus
+    email: rafael.harus@gmail.com
+security:
+  - ApiKeyAuth: []
+paths:
+  '/v1/state':
+    get:
+      tags:
+        - state
+      summary: State Collection
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CollectionState"
+    post:
+      tags:
+        - state
+      summary: Create a state
+      requestBody:
+        description: state body
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: "Rio de Janeiro"
+                uf:
+                  type: string
+                  example: "RJ"
+      responses:
+        422:
+          description: Unprocessable Entity
+          content: {}
+        201:
+          description: Created OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/State'
+  '/v1/state/{id}':
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+        description: state id
+    put:
+      tags:
+        - state
+      summary: Update a state
+      requestBody:
+        description: state body
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: "Rio de Janeiro"
+                uf:
+                  type: string
+                  example: "RJ"
+      responses:
+        422:
+          description: Unprocessable Entity
+          content: {}
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/State'
+    delete:
+      tags:
+        - state
+      summary: Deleted a state
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/State'
+
+  '/v1/city':
+    get:
+      tags:
+        - city
+      summary: City Collection
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CollectionCity"
+    post:
+      tags:
+        - city
+      summary: Create a city
+      requestBody:
+        description: city body
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: "Rio de Janeiro"
+                stateId:
+                  type: string
+                  format: uuid
+                  example: "90f108b0-f499-4619-8acc-87f35d4b3062"
+      responses:
+        422:
+          description: Unprocessable Entity
+          content: {}
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+  '/v1/city/{id}':
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+        description: city id
+    put:
+      tags:
+        - city
+      summary: Update a city
+      requestBody:
+        description: city body
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  example: "Rio de Janeiro"
+                stateId:
+                  type: string
+                  format: uuid
+                  example: "90f0fd07-f3c4-42a1-84fe-b29fa1af04da"
+      responses:
+        422:
+          description: Unprocessable Entity
+
+          content: {}
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+    delete:
+      tags:
+        - city
+      summary: Delete a city
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/City'
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+  schemas:
+    CollectionState:
+      type: "object"
+      properties:
+        _total_items:
+          type: integer
+          format: int32
+        _page:
+          type: integer
+          format: int32
+        _page_count:
+          type: integer
+          format: int32
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  example:
+                    "http://{{host}}/v1/state?page=1"
+        _embedded:
+          type: object
+          properties:
+            states:
+              type: "array"
+              items:
+                $ref: '#/components/schemas/State'
+    CollectionCity:
+      type: "object"
+      properties:
+        _total_items:
+          type: integer
+          format: int32
+        _page:
+          type: integer
+          format: int32
+        _page_count:
+          type: integer
+          format: int32
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  example:
+                    "http://{{host}}/v1/state?page=1"
+        _embedded:
+          type: object
+          properties:
+            states:
+              type: "array"
+              items:
+                $ref: '#/components/schemas/City'
+
+    State:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+          example:
+            "90f0fd07-f3c4-42a1-84fe-b29fa1af04da"
+        name:
+          type: "string"
+          format: "string"
+          example: "Rio de Janeiro"
+        shortName:
+          type: "string"
+          format: "string"
+          example: "RJ"
+        createdAt:
+          type: string
+          format: 'date-time'
+          example:
+            "2020-06-30T10:00:00-03:00"
+        updatedAt:
+          type: string
+          format: 'date-time'
+          example:
+            "2020-06-30T10:00:00-03:00"
+        deleted:
+          type: boolean
+          example: false
+        deletedAt:
+          type: string
+          format: 'date-time'
+          example:
+            "2020-06-30T10:00:00-03:00"
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  example:
+                    "http://localhost:8080/v1/state/90f0fd07-f3c4-42a1-84fe-b29fa1af04da"
+    City:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          format: "uuid"
+          example:
+            "90f10584-6260-4d99-a23d-f521934b865f"
+        name:
+          type: "string"
+          format: "string"
+          example: "Rio de Janeiro"
+        stateId:
+          type: string
+          format: uuid
+          example:
+            "90f0fd07-f3c4-42a1-84fe-b29fa1af04da"
+        createdAt:
+          type: string
+          format: 'date-time'
+          example:
+            "2020-06-30T10:00:00-03:00"
+        updatedAt:
+          type: string
+          format: 'date-time'
+          example:
+            "2020-06-30T10:00:00-03:00"
+        deleted:
+          type: boolean
+          example: false
+        deletedAt:
+          type: string
+          format: 'date-time'
+          example:
+            "2020-06-30T10:00:00-03:00"
+        _links:
+          type: object
+          properties:
+            self:
+              type: object
+              properties:
+                href:
+                  type: string
+                  example:
+                    "http://localhost:8080/v1/city/90f10584-6260-4d99-a23d-f521934b865f"
