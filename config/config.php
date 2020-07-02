@@ -9,7 +9,7 @@ use Symfony\Component\Dotenv\Dotenv;
 
 $envFile = __DIR__ . '/../.env';
 if (file_exists($envFile)) {
-    (new Dotenv(true))->overload($envFile);
+    (new Dotenv())->usePutenv(true)->overload($envFile);
 }
 
 date_default_timezone_set(getenv('TIMEZONE'));
